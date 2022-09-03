@@ -1,0 +1,2 @@
+class SentencesEntity < ApplicationRecord
+end
