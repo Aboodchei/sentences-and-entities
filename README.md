@@ -24,3 +24,7 @@ Next, install webpacker dependencies:
 Start the Rails app to see the Sentences & Entities application.
 
 `bundle exec rails server`
+
+### Run the test suite
+
+`bundle exec rails test`
