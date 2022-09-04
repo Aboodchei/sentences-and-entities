@@ -1,7 +1,8 @@
 module ApplicationHelper
   def show_sentence_with_entities(sentence)
     text = sentence.text
-    sentence.entities.each do |entity|
+    # Try to avoid overriding spans as much as possible by sorting in descending length
+    sentence.entities.to_a.sort{|el| el.text.length}.each do |entity|
       style = styling_data(entity.type)
       text.gsub!(entity.text,
         "<span class='element' style='background-color: #{style[:bg_color]}; color: #{style[:text_color]}'>

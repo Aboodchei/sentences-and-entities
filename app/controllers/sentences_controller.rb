@@ -65,6 +65,11 @@ class SentencesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def sentence_params
-      params.require(:sentence).permit(:text, entities_attributes: [:id, :text, :type, :_destroy])
+      # Allow entity text in both string and array format
+      permitted = params.require(:sentence).permit(:text, entities_attributes: [:id, :text, :type, :_destroy, {text: []}])
+      permitted[:entities_attributes]&.each do |_, entity_data|
+        entity_data[:text] = entity_data[:text]&.split&.join(" ")&.strip
+      end
+      permitted
     end
 end

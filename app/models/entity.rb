@@ -13,7 +13,7 @@ class Entity < ApplicationRecord
   self.inheritance_column = '_'
   has_many :sentences_entities, dependent: :destroy
   has_many :sentences, through: :sentences_entities
-  validates :type, presence: true
+  validates :text, :type, presence: true
   before_save :strip_and_upcase_type
 
   private

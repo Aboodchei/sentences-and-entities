@@ -25,7 +25,7 @@
       <%= render 'entity_fields', :f => entity %>
     <% end %>
     <div class='links'>
-      <%= link_to_add_association 'add entity', form, :entities %>
+      <%= link_to_add_association 'Add entity', form, :entities %>
     </div>
   </div>
 
@@ -34,3 +34,5 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+<%= javascript_pack_tag 'entity_fields' %>

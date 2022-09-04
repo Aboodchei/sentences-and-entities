@@ -23,14 +23,16 @@ class SentencesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to sentence_url(Sentence.last)
   end
 
-  test "should create sentence and any entities added" do
+  test "should create sentence and any entities added - string" do
     assert_difference('Sentence.count', 1) do
       post sentences_url, params: { sentence: {
         text: @sentence.text,
-        entities_attributes: [{
-          text: "beginning of",
-          type: "start"
-        }]
+        entities_attributes: {
+          rand(50000) => {
+            text: "beginning of",
+            type: "start"
+          }
+        }
       }}
     end
     created_sentence = Sentence.last
@@ -38,6 +40,25 @@ class SentencesControllerTest < ActionDispatch::IntegrationTest
     assert_equal(created_sentence.entities.count, 1)
     assert_equal(created_sentence.entities.first.text, "beginning of")
     assert_equal(created_sentence.entities.first.type, "START")
+  end
+
+  test "should create sentence and any entities added - array" do
+    assert_difference('Sentence.count', 1) do
+      post sentences_url, params: { sentence: {
+        text: @sentence.text,
+        entities_attributes: {
+          rand(50000) => {
+            text: "ending of",
+            type: "end"
+          }
+        }
+      }}
+    end
+    created_sentence = Sentence.last
+    assert_redirected_to sentence_url(created_sentence)
+    assert_equal(created_sentence.entities.count, 1)
+    assert_equal(created_sentence.entities.first.text, "ending of")
+    assert_equal(created_sentence.entities.first.type, "END")
   end
 
   test "should show sentence" do

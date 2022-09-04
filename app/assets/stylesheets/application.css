@@ -22,3 +22,7 @@ span.element {
 h3 {
   font-weight: normal;
 }
+
+.entity-fields-multiple {
+  width: 33%;
+}

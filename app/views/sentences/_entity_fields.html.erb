@@ -1,14 +1,17 @@
 <div class="nested-fields">
   <div class="field">
     <%= f.label :text %>
+    <small>Multiple selections will automatically be separated by a single space.</small>
     <br>
-    <%= f.text_field :text %>
+    <%= f.select :text, 
+        options_for_select(f.object&.text&.split(' ').to_a, f.object&.text&.split(' ').to_a), {},
+        { class: "entity-fields-multiple", multiple: "multiple", required: true } %>
   </div>
   <div class="field">
     <%= f.label :type %>
     <br>
     <%= f.text_field :type %>
   </div>
-  <%= link_to_remove_association "remove entity", f %>
+  <%= link_to_remove_association "Remove entity", f %>
 </div>
 <br>
