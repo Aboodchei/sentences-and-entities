@@ -2,7 +2,7 @@ require "test_helper"
 
 class SentencesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @sentence = sentences(:one)
+    @sentence = sentences(:hello_world)
   end
 
   test "should get index" do
@@ -16,11 +16,28 @@ class SentencesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create sentence" do
-    assert_difference('Sentence.count') do
+    assert_difference('Sentence.count', 1) do
       post sentences_url, params: { sentence: { text: @sentence.text } }
     end
 
     assert_redirected_to sentence_url(Sentence.last)
+  end
+
+  test "should create sentence and any entities added" do
+    assert_difference('Sentence.count', 1) do
+      post sentences_url, params: { sentence: {
+        text: @sentence.text,
+        entities_attributes: [{
+          text: "beginning of",
+          type: "start"
+        }]
+      }}
+    end
+    created_sentence = Sentence.last
+    assert_redirected_to sentence_url(created_sentence)
+    assert_equal(created_sentence.entities.count, 1)
+    assert_equal(created_sentence.entities.first.text, "beginning of")
+    assert_equal(created_sentence.entities.first.type, "START")
   end
 
   test "should show sentence" do
@@ -38,9 +55,12 @@ class SentencesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to sentence_url(@sentence)
   end
 
-  test "should destroy sentence" do
+  test "should destroy sentence and any related sentence entities" do
+    SentencesEntity.create(entity: entities(:hello), sentence: @sentence)
     assert_difference('Sentence.count', -1) do
-      delete sentence_url(@sentence)
+      assert_difference('SentencesEntity.count', -1) do
+        delete sentence_url(@sentence)
+      end
     end
 
     assert_redirected_to sentences_url

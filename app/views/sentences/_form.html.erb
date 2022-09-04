@@ -13,9 +13,23 @@
 
   <div class="field">
     <%= form.label :text %>
-    <%= form.text_field :text %>
+    <%= form.text_area :text, cols: 80 %>
   </div>
 
+  <hr>
+
+  <div id='entities'>
+    <h5>Entities</h5>
+    <hr>
+    <%= form.fields_for :entities do |entity| %>
+      <%= render 'entity_fields', :f => entity %>
+    <% end %>
+    <div class='links'>
+      <%= link_to_add_association 'add entity', form, :entities %>
+    </div>
+  </div>
+
+  <hr>
   <div class="actions">
     <%= form.submit %>
   </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SentenceEntities</title>
+    <title>Sentences Entities</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,6 +11,11 @@
   </head>
 
   <body>
+    <header>
+      <h4>Sentences Entities</h4>
+      <%= link_to "Sentences", sentences_path %> | <%= link_to "Entities", entities_path %>
+    </header>
+    <hr>
     <%= yield %>
   </body>
 </html>

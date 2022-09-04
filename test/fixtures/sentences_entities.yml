@@ -1,9 +1,23 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# == Schema Information
+#
+# Table name: sentences_entities
+#
+#  id          :bigint           not null, primary key
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  entity_id   :bigint
+#  sentence_id :bigint
+#
+# Indexes
+#
+#  index_sentences_entities_on_entity_id    (entity_id)
+#  index_sentences_entities_on_sentence_id  (sentence_id)
+#
 
-one:
-  reference: 
-  reference: 
+hello:
+  sentence: hello_world (Sentence)
+  entity: hello (Entity)
 
-two:
-  reference: 
-  reference: 
+world:
+  sentence: hello_world (Sentence)
+  entity: world (Entity)

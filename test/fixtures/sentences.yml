@@ -1,7 +1,12 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# == Schema Information
+#
+# Table name: sentences
+#
+#  id         :bigint           not null, primary key
+#  text       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 
-one:
-  text: MyString
-
-two:
-  text: MyString
+hello_world:
+  text: Hello World is the beginning of everything!

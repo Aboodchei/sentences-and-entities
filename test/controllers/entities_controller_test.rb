@@ -2,7 +2,7 @@ require "test_helper"
 
 class EntitiesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @entity = entities(:one)
+    @entity = entities(:hello)
   end
 
   test "should get index" do
@@ -15,8 +15,16 @@ class EntitiesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "does not create entity with blank type" do
+    assert_no_difference('Entity.count') do
+      post entities_url, params: { entity: { text: @entity.text, type: nil } }
+    end
+
+    assert_response :unprocessable_entity
+  end
+
   test "should create entity" do
-    assert_difference('Entity.count') do
+    assert_difference('Entity.count', 1) do
       post entities_url, params: { entity: { text: @entity.text, type: @entity.type } }
     end
 
@@ -38,9 +46,12 @@ class EntitiesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to entity_url(@entity)
   end
 
-  test "should destroy entity" do
+  test "should destroy entity and any related sentence entities" do
+    SentencesEntity.create(entity: @entity, sentence: sentences(:hello_world))
     assert_difference('Entity.count', -1) do
-      delete entity_url(@entity)
+      assert_difference('SentencesEntity.count', -1) do
+        delete entity_url(@entity)
+      end
     end
 
     assert_redirected_to entities_url

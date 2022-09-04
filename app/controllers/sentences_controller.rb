@@ -3,7 +3,7 @@ class SentencesController < ApplicationController
 
   # GET /sentences or /sentences.json
   def index
-    @sentences = Sentence.all
+    @sentences = Sentence.all.includes(:entities)
   end
 
   # GET /sentences/1 or /sentences/1.json
@@ -65,6 +65,6 @@ class SentencesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def sentence_params
-      params.require(:sentence).permit(:text)
+      params.require(:sentence).permit(:text, entities_attributes: [:id, :text, :type, :_destroy])
     end
 end

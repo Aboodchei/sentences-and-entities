@@ -1,9 +1,18 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# == Schema Information
+#
+# Table name: entities
+#
+#  id         :bigint           not null, primary key
+#  text       :string
+#  type       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 
-one:
-  text: MyString
-  type: 
+hello:
+  text: Hello
+  type: greeting
 
-two:
-  text: MyString
-  type: 
+world:
+  text: World
+  type: subject

@@ -29,12 +29,12 @@ ActiveRecord::Schema.define(version: 2022_09_03_184003) do
   end
 
   create_table "sentences_entities", force: :cascade do |t|
-    t.bigint "sentences_id"
-    t.bigint "entities_id"
+    t.bigint "sentence_id"
+    t.bigint "entity_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["entities_id"], name: "index_sentences_entities_on_entities_id"
-    t.index ["sentences_id"], name: "index_sentences_entities_on_sentences_id"
+    t.index ["entity_id"], name: "index_sentences_entities_on_entity_id"
+    t.index ["sentence_id"], name: "index_sentences_entities_on_sentence_id"
   end
 
 end

@@ -1,9 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Text:</strong>
-  <%= @sentence.text %>
-</p>
+<h3>
+  <%= show_sentence_with_entities(@sentence) %>
+</h3>
 
+<h5>Entities:</h5>
+<% @sentence.entities.each do |entity| %>
+  <p>Text: <%= entity.text %>. Type: <%= entity.type %></p>
+<% end %>
 <%= link_to 'Edit', edit_sentence_path(@sentence) %> |
 <%= link_to 'Back', sentences_path %>
